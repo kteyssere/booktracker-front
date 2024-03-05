@@ -1,0 +1,40 @@
+.cardContainer {
+    width: 800px;
+    height: 800px;
+   /* display: flex wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 5% 15% 0 15%;*/
+    border-radius: 10%;
+
+    display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-gap: 20px;
+}
+
+.cardBlock{
+    display: grid;
+  grid-template-rows: max-content 200px 1fr;
+} 
+
+/* .cardContainer {
+    display: grid;
+    grid-template-rows: max-content 200px 1fr;
+    margin: 5% 15% 0 15%;
+    border-radius: 10%;
+} */
+
+.cardTitle {
+    text-align: center;
+    
+
+}
+
+.cardContent{
+    margin-left: 5%;
+}
+
+.cardHeader{
+    margin-top: 10%;
+}
+
