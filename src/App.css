@@ -1,35 +1,15 @@
 body{
-  background-color: #F1DABF;
-  color: white;
+  /*background-color: #F1DABF;
+  color: white;*/
 }
 .App {
   text-align: center;
-}
 
-/* @media screen and (min-width: 800px) {
-  div.AppSidenav {
-    /*margin: 1em 2em;*/
-/*    width: 10vw;
-  }
 }
- */
-/* @media screen and (max-width: 800px) {
-  div.AppSidenav  {
-    width: 10vw;
-  }
-} */
 
 /* Use a media query to add a breakpoint at 800px: */
 @media screen and (max-width: 800px) {
-  /* body {
-    background-color: #61dafb;
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
-  /*} */
-  /* styled.div.AppSidenav{
-    background-color: #2b4f59;
-    width: 50vw; /* The width is 100%, when the viewport is 800px or smaller */
-/*
-  } */
+
 }
 
 .App-logo {

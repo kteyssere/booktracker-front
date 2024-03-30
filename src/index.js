@@ -1,27 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from 'styled-components';
-
-const theme = {
-  primary:"white",
-  secondary:"#886F68"
-}
-
-const night = {
-  primary:"#886F68",
-  secondary:"#212437"
-}
+import AuthProvider from './providers/AuthProvider/AuthProvider';
+import { Routes } from './routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   </React.StrictMode>
 );
 

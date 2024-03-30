@@ -1,119 +1,159 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { ThemeProvider } from "styled-components";
-import {Card, Paragraph, Divider, Button, InputText, Clock} from './components/atoms';
-import { styled } from "styled-components";
-import {
-  FaCarrot,
-  FaLemon,
-  FaPepperHot,
-  FaPersonBooth,
-  FaUser,
-} from "react-icons/fa";
+import { ThemeProvider, styled } from "styled-components";
 import { Menu } from "./components/organisms";
-import { MenuButton } from "./components/molecules";
-import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
-import HttpExample from "./components/atoms/HttpExample/HttpExample";
+import { NightModeProvider } from "./contexts";
+import { FaHome, FaBook, FaGlobe, FaComments } from "react-icons/fa";
+import { store } from './store';
+import { Provider } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth, refreshAuthToken } from "./providers/AuthProvider/AuthProvider";
+import { jwtDecode } from 'jwt-decode';
 
-const invert = ({ primary, secondary }) => ({
-  primary: secondary,
-  secondary: primary,
-});
+
+
+/**
+ * Style
+ */
 const AppContainer = styled.div`
+background: ${(props) => props.theme.primary}
+color: ${(props) => props.theme.secondary}
+height: 100vh;
+width: 100vw;
+display: flex;
+
+margin: 0 10px 0 10px;
+gap: 10px;
+flex-flow: row wrap;
 
 @media screen and (max-width: 800px){
-  
+  flex-flow: column wrap;
+  margin: 0 10px 0 3px;
 }
 `
 const AppContent = styled.div`
-
-position: absolute;
-width: 70vw;
-height: 90vh;
-left: 440px;
-top: 38px;
-padding-right: 10px;
+flex:9;
+height: 95vh;
+margin-right: 20px;
 
 @media screen and (max-width: 800px){
-  width: 90vw;
-  height: 90vh;
-
-  left: 16px;
-  top: 135px;
+  height: 100vh;
   padding-bottom: 10px;
 }
-
 `
 
+const night = {
+  primary: "#dcb6ab",
+  secondary: "#212437cd"
+};
 
+const day = {
+  primary: "white",
+  secondary: "#886f68cc"
+};
+
+/**
+ * Menu link
+ */
 const menuData = [
   {
-    icon: <FaPepperHot></FaPepperHot>,
-    text: "Chili",
-    data: "chili",
+    icon: <FaHome></FaHome>,
+    text: "Home",
+    slug: "/",
   },
   {
-    icon: <FaCarrot></FaCarrot>,
-    text: "Carrot",
-    data: "carrot",
+    icon: <FaBook></FaBook>,
+    text: "Bookshelf",
+    slug: "bookshelf",
   },
   {
-    icon: <FaLemon></FaLemon>,
-    text: "Lemon",
-    data: "lemon",
+    icon: <FaGlobe></FaGlobe>,
+    text: "Explore",
+    slug: "explore",
   },
+  {
+    icon: <FaComments></FaComments>,
+    text: "Discussions",
+    slug: "discussions",
+  }
 ];
+
+const useTokenExpiration = (token) => {
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
+
+  useEffect(() => {
+    if (!token) return;
+
+    const decodedToken = jwtDecode(token);
+    const expirationTime = decodedToken.exp * 1000; // Convert to milliseconds
+
+    const timeout = setTimeout(() => {
+      const now = Date.now();
+      console.log(expirationTime);
+      console.log(decodedToken);
+      console.log(decodedToken.exp);
+      if (now >= expirationTime) {
+        console.log("I'm expired... :(")
+        setIsTokenExpired(true);
+      }
+    }, 1000); // Check expiration every second
+
+    return () => clearTimeout(timeout);
+  }, [token]);
+
+  return isTokenExpired;
+}
 
 
 
 function App() {
-  const [page, setPage] = useState("lemon");
+  const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [isNightMode, setIsNightMode] = useState(getCurrentTheme());
+  const invert = () => (isNightMode ? night : day);
+  const { token, refreshToken, setToken } = useAuth();
+  const isTokenExpired = useTokenExpiration(token);
 
-  const renderPage = () => {
-    switch (page) {
-      case "carrot":
-        return (
-          <div>
-            <Clock/>
-          </div>
-        );
-        break;
-      case "lemon":
-        return <div>Lemon</div>;
-        break;
+  useEffect(() => {
+    console.log(isTokenExpired);
+    if (isTokenExpired) {
+      const newTkn = refreshAuthToken(refreshToken);
+      console.log(newTkn);
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      setToken(newTkn);
 
-      default:
-      case "chili":
-        return <div>Chilly</div>;
-        break;
+      return <Navigate to="/logout" />;
     }
-  };
+  }, [isTokenExpired]);
 
-  const handler = (pageName) => {
-    setPage(pageName);
-  };
+  // if there's a user show the message below
+  if (!token) {
+    // If not authenticated, redirect to the login page
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
-    <div className='App'>
-   
-    <HttpExample></HttpExample>
-      <AppContainer>
-      <Menu data={menuData} handler={handler}></Menu>
-      <InputText/>
-      {renderPage()}
-  
-        {/* <AppSidenav>
-          <Card></Card>
-        </AppSidenav> */}
-        <AppContent>
-          <Card>
-            
-          </Card>
-        </AppContent>
-      </AppContainer>
-    </div>
+      <Provider store={store}>
+        <ThemeProvider theme={invert(isNightMode)}>
+          <NightModeProvider
+            value={{
+              changeNightMode: () => {
+                setIsNightMode(!isNightMode);
+              },
+              nightMode: isNightMode,
+            }}
+          >
+            <AppContainer>
+              <Menu data={menuData}>
+              </Menu>
+              <AppContent>
+                <Outlet />
+              </AppContent>
+            </AppContainer>
+          </NightModeProvider>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
