@@ -89,11 +89,7 @@ const useTokenExpiration = (token) => {
 
     const timeout = setTimeout(() => {
       const now = Date.now();
-      console.log(expirationTime);
-      console.log(decodedToken);
-      console.log(decodedToken.exp);
       if (now >= expirationTime) {
-        console.log("I'm expired... :(")
         setIsTokenExpired(true);
       }
     }, 1000); // Check expiration every second
@@ -114,10 +110,8 @@ function App() {
   const isTokenExpired = useTokenExpiration(token);
 
   useEffect(() => {
-    console.log(isTokenExpired);
     if (isTokenExpired) {
       const newTkn = refreshAuthToken(refreshToken);
-      console.log(newTkn);
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       setToken(newTkn);

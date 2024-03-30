@@ -18,16 +18,13 @@ const bookSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getBook.pending, (state, action) => {
-        console.log("Pending");
         state.status = "loading";
       })
       .addCase(getBook.fulfilled, (state, action) => {
         state.status = "succeed";
-        console.log("Success", action.payload);
         state.book = action.payload;
       })
       .addCase(getBook.rejected, (state, action) => {
-        console.error("Error");
         state.status = "failed";
       });
   },
@@ -44,16 +41,13 @@ const booksearchSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getBookSearch.pending, (state, action) => {
-        console.log("Pending");
         state.status = "loading";
       })
       .addCase(getBookSearch.fulfilled, (state, action) => {
         state.status = "succeed";
-        console.log("Success", action.payload);
         state.booksearch = action.payload;
       })
       .addCase(getBookSearch.rejected, (state, action) => {
-        console.error("Error");
         state.status = "failed";
       });
   },
@@ -71,16 +65,13 @@ const latestProgressionSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getBook.pending, (state, action) => {
-        console.log("Pending");
         state.status = "loading";
       })
       .addCase(getBook.fulfilled, (state, action) => {
         state.status = "succeed";
-        console.log("Success", action.payload);
         state.book = action.payload;
       })
       .addCase(getBook.rejected, (state, action) => {
-        console.error("Error");
         state.status = "failed";
       });
   },
@@ -97,7 +88,6 @@ export const getBook = createAsyncThunk(
       method: "get",
 
     };
-    console.log(config);
     const response = await axios(config)
       .then((res) => {
         console.log("HttpBin repondru ", res);
@@ -107,7 +97,7 @@ export const getBook = createAsyncThunk(
         console.error("Error: ", err);
         return err;
       });
-    console.log(response);
+  
     return response.data;
   }
 );
@@ -121,7 +111,7 @@ export const getBookSearch = createAsyncThunk(
       method: "get",
 
     };
-    console.log(config);
+   
     const response = await axios(config)
       .then((res) => {
         console.log("HttpBin repondru ", res);
@@ -131,7 +121,7 @@ export const getBookSearch = createAsyncThunk(
         console.error("Error: ", err);
         return err;
       });
-    console.log(response);
+   
     return response.data;
   }
 );
@@ -145,17 +135,17 @@ export const getLatestProgression = createAsyncThunk(
       method: "get",
 
     };
-    // console.log(config);
+   
     const response = await axios(config)
       .then((res) => {
-        // console.log("HttpBin repondru ", res);
+        console.log("HttpBin repondru ", res);
         return res;
       })
       .catch((err) => {
-        // console.error("Error: ", err);
+        console.error("Error: ", err);
         return err;
       });
-    // console.log(response);
+   
     return response.data;
   }
 );

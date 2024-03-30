@@ -18,7 +18,6 @@ const BookOverview = ({ bookCover, progress, ...props }) => {
 
   const dispatch = useDispatch();
   const apiReturn = useSelector((state) => {
-    console.log(state.latestProgression);
     return state.latestProgression;
   });
 
@@ -27,7 +26,6 @@ const BookOverview = ({ bookCover, progress, ...props }) => {
   }, []);
 
   useEffect(() => {
-    console.log(apiReturn);
     if (apiReturn.status === "succeed" && apiReturn.latestProgression) {
       setIsLoaded(true);
     } else if (apiReturn.status == "error") {
@@ -37,7 +35,6 @@ const BookOverview = ({ bookCover, progress, ...props }) => {
 
   const renderBookOverview = () => {
     if (isLoaded) {
-      console.log(apiReturn);
       return <Card subtitle={"Now reading :"}>
         {apiReturn.latestProgression.map((x, i) => {
 

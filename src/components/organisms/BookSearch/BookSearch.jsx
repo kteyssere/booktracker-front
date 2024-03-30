@@ -12,12 +12,10 @@ const BookSearch = () => {
 
   const dispatch = useDispatch();
   const apiReturn = useSelector((state) => {
-    console.log(state.booksearch);
     return state.booksearch;
   });
 
   useEffect(() => {
-    console.log(apiReturn);
     if (apiReturn.status === "succeed" && apiReturn.booksearch) {
       setInfoMsg("");
       setIsLoaded(true);
@@ -34,7 +32,6 @@ const BookSearch = () => {
 
   const renderDatas = () => {
     if (isLoaded) {
-      console.log(apiReturn);
       return <div>
         {apiReturn.booksearch.map((x, i) => {
           let { title, id, imageLinks } = x;

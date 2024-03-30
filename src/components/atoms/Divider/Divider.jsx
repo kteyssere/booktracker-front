@@ -4,7 +4,6 @@ import React from "react";
 class Divider extends React.Component{
     constructor(props){
         super(props);
-        console.log("Objet Actualisé");
         this.state ={
             isVisible: true,
             sentence: "tata"
@@ -18,13 +17,6 @@ class Divider extends React.Component{
         }));
     }
 
-    componentWillUnmount(){
-        console.log("unmount");
-    }
-
-    componentDidUpdate(){
-        console.log("updated");
-    }
 
     handleVisibility(e ) {
         this.setState((prevState) => ({

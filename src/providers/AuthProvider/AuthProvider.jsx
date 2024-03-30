@@ -51,7 +51,6 @@ export const refreshAuthToken = async (refreshToken) => {
     const response = await axios.post('http://localhost:8000/api/token/refresh', {
       refreshToken: refreshToken
     });
-    console.log(response);
     return response.data.accessToken; // New JWT 
   } catch (error) {
     console.error('Erreur lors du rafraîchissement du token :', error);

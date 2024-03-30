@@ -48,12 +48,11 @@ const ReviewForm = ({ onAdd, idBook, ...props }) => {
   const handleSubmit = async e => {
     try {
       e.preventDefault();
-      console.log(idBook)
 
       const review = { comment, title, idBook };
 
       setInfoMsg("Loading...");
-      console.log(review);
+     
       const response = await axios.post(
         "http://localhost:8000/api/review",
         review

@@ -12,9 +12,9 @@ export default function Offline({ children }) {
 
   useEffect(() => {
     if (!online) {
-      //console.log("Offline");
+    
     } else {
-      //console.log("Online");
+     
     }
   }, [online]);
 

@@ -7,11 +7,10 @@ import { ReviewForm } from '../../molecules';
 
 
 const BookDetails = ({ idBook, ...props }) => {
-  console.log(idBook);
+ 
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const apiReturn = useSelector((state) => {
-    console.log(state.book);
     return state.book;
   });
 
@@ -20,7 +19,6 @@ const BookDetails = ({ idBook, ...props }) => {
   }, []);
 
   useEffect(() => {
-    console.log(apiReturn);
     if (apiReturn.status === "succeed" && apiReturn.book) {
       setIsLoaded(true);
     } else if (apiReturn.status == "error") {
@@ -34,7 +32,6 @@ const BookDetails = ({ idBook, ...props }) => {
 
   const renderDatas = () => {
     if (isLoaded) {
-      console.log(apiReturn);
       let { title, imageLinks, description, authors, categories, publisher, totalPages, reviews } = apiReturn.book;
       return <div>
         <Card title={title}>

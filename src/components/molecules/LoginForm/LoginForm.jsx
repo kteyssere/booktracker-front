@@ -59,13 +59,11 @@ const LoginForm = () => {
         user
       );
 
-      console.log(response.data);
       setToken(response.data.token, response.data.refresh_token);
       navigate("/", { replace: true });
     } catch (error) {
       setInfoMsg("");
 
-      console.log(error.response.data);
       setErrorMsg(error.response.data.message);
 
     }

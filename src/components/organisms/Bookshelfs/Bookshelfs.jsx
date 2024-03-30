@@ -12,7 +12,6 @@ const Bookshelfs = () => {
   
   const dispatch = useDispatch();
   const apiReturn = useSelector((state) => {
-    console.log(state.listbook);
     return state.listbook;
   });
 
@@ -20,7 +19,6 @@ const Bookshelfs = () => {
     dispatch(getListBook());
   }, []);
   useEffect(() => {
-    console.log(apiReturn);
     if (apiReturn.status === "succeed" && apiReturn.listbook) {
       setIsLoaded(true);
     } else if (apiReturn.status == "error") {
@@ -34,7 +32,6 @@ const Bookshelfs = () => {
 
   const renderDatas = () => {
     if (isLoaded) {
-      console.log(apiReturn);
       return <div>
         {apiReturn.listbook.map((x, i) => {
         
@@ -47,7 +44,6 @@ const Bookshelfs = () => {
             <BookshelfDeleteButton onDelete={handleAddElement} idBS={x.id}></BookshelfDeleteButton>
             {book.map((y, j) => {
               let { id, title, imageLinks } = y;
-              console.log(y);
 
               if (imageLinks.length > 0) {
 

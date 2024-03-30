@@ -51,7 +51,6 @@ const RegisterForm = () => {
 
   const handleSubmit = async e => {
     try {
-      console.log('hello');
       e.preventDefault();
       const user = { username, password, passwordConfirm, name, email };
       if (password != passwordConfirm) {
@@ -69,14 +68,11 @@ const RegisterForm = () => {
       setInfoMsg("");
 
       if (error.response != null) {
-        console.log(error.response.data);
         setErrorMsg(error.response.data.message);
 
         if (error.response.data.violations != null) {
-          console.log(error.response.data.violations);
           setValidationMsg(error.response.data.violations);
-          console.log(validationMsg);
-
+        
         }
       }
     }

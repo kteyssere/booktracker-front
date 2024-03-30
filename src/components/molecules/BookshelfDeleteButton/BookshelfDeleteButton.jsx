@@ -10,7 +10,6 @@ const BookshelfDeleteButton = ({ onDelete, idBS, data, colorButton, ...props }) 
   const deleteBookshelf = async e => {
 
     try {
-      console.log(idBS);
       e.preventDefault();
 
       setInfoMsg("Loading...");
@@ -32,7 +31,6 @@ const BookshelfDeleteButton = ({ onDelete, idBS, data, colorButton, ...props }) 
     } catch (error) {
       setInfoMsg("");
       setErrorMsg(error.response.data.message);
-      console.log(error);
     }
 
   };
