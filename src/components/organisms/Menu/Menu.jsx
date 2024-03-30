@@ -1,44 +1,46 @@
 import React from "react";
-import {Card} from "../../atoms"
 import { styled } from "styled-components";
-import { MenuButton } from "../../molecules";
-
+import { MenuButton, NightModeSwitch, BookOverview } from "../../molecules";
+import { Card } from "../../atoms";
+import Offline from "../../../Offline";
+import LogoutButton from "../../molecules/LogoutButton/LogoutButton";
 
 const AppSidenav = styled.div`
-position: absolute;
-width: 366px;
-height: 90vh;
-left: 16px;
-top: 38px;
 
+flex:2;
+height: 95vh;
 @media screen and (max-width: 800px){
-  width: 90vw;
-  height: 10vh;
+  height: 15vh;
+
  
 }
 `
 
-// const Menu = () => {
-//     return <AppSidenav><Card></Card></AppSidenav>
-// };
 
-
-const Menu = ({ handler, data }) => {
+const Menu = ({ title, content, data, handler, ...props }) => {
   return (
     <>
-    <AppSidenav><Card></Card></AppSidenav>
-    
-   
-    <div>
-      {data.map((x, i) => {
-        let { icon, text, data } = x;
-        return (
-          <MenuButton key={i} handler={handler} icon={icon} data={data}>
-            {text}
-          </MenuButton>
-        );
-      })}
-    </div>
+      <AppSidenav>
+        <Card>
+
+          {data.map((x, i) => {
+            let { icon, text, slug } = x;
+            return (
+              <MenuButton key={i} handler={handler} icon={icon} data={slug}>
+                {text}
+              </MenuButton>
+            );
+          })}
+          <BookOverview></BookOverview>
+
+          <NightModeSwitch></NightModeSwitch>
+          <Offline></Offline>
+
+          <LogoutButton data={"/logout"}></LogoutButton>
+
+        </Card>
+
+      </AppSidenav>
     </>
   );
 };
