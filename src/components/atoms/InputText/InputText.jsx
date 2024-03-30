@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React from "react";
+import { styled } from "styled-components";
 
-import {styled} from 'styled-components';
+const StyledInput = styled.input`
 
-const StyledInput = styled.input``;
+background-color: ${(props) => props.theme.secondary ?? "white"};
+color: ${(props) => props.theme.primary ?? "black"};
+width: ${(props) => props.width ?? "100%"};
+height: ${(props) => props.height ?? ""};
+border-radius: ${(props) => props.borderRadius ?? "50px"};
 
-const InputText = () => {
-    const [value, setValue] = useState("");
-    const handleText = (e) => {
-        if(value !== e.target.value){
-            setValue(e.target.value);
-        }
-    };
-  return <><StyledInput
-  placeholder="ripipim"
-  defaultValue="Toto"
-  onChange={handleText}
-/>{value}</>
-  
-}
 
-export default InputText
+box-shadow: 10px 5px 5px #9c7e76;
+padding: ${(props) => props.padding ?? "5px 0 10px 0"};
+margin: ${(props) => props.margin ?? "5px 15px 0 auto"};
+
+
+`;
+
+
+const InputText = ({ type, value, placeholder, onChange, ...props }) => {
+  return <StyledInput {...props} type={{type}} value={{value}} placeholder={{placeholder}} onChange={{onChange}} />;
+};
+
+export default InputText;

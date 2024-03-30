@@ -7,12 +7,23 @@ const StyledButton = styled.button`
  background : ${(props) => 
     (props.background ? props.background : props.theme.secondary)};
 color : ${(props) => (props.color ? props.color : props.theme.primary)};
+border-radius: 50px;
+font-size: ${(props) => (props.fontSize ? props.fontSize : "")};
+font-family: inherit;
+border: none;
+transition-duration: 0.4s;
+
+&:hover { 
+    background-color: ${(props) => (props.color ? props.color : props.theme.primary)};
+    color: ${(props) => 
+        (props.background ? props.background : props.theme.secondary)};
+}
 `
 
 const Button = ({icon = (<></>), text= "", ...props}) => {
     return (
         <StyledButton {...props}>
-            {icon}{text}</StyledButton>
+            {icon} {text}</StyledButton>
     )
 }
 

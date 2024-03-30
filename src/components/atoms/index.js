@@ -1,8 +1,10 @@
-import Card from "./Card/Card";
-import Paragraph from "./Paragraph/Paragraph";
-import Divider from "./Divider/Divider";
+import BookCover from "./BookCover/BookCover";
 import Button from "./Button/Button";
+import Card from "./Card/Card";
+import Divider from "./Divider/Divider";
 import InputText from "./InputText/InputText";
-import Clock from "./Clock/Clock";
+import List from "./List/List";
+import ListItem from "./ListItem/ListItem";
+import ProgressBar from "./ProgressBar/ProgressBar";
 
-export {Card, Paragraph, Divider, Button, InputText, Clock}
+export {BookCover, Button, Card, Divider, InputText, List, ListItem, ProgressBar}
