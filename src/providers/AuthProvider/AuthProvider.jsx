@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // State to hold the authentication token
   const [token, setToken_] = useState(localStorage.getItem("token"));
-  const [refreshToken, setRefreshToken_] = useState(localStorage.getItem("refreshToken"));
+  const [refreshToken, setRefreshToken_] = useState(localStorage.getItem("refresh_token"));
 
   // Function to set the authentication token
   const setToken = (newToken, newRefreshToken) => {
@@ -19,11 +19,11 @@ const AuthProvider = ({ children }) => {
     if (token && refreshToken) {
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       localStorage.setItem('token',token);
-      localStorage.setItem('refreshToken',refreshToken);
+      localStorage.setItem('refresh_token',refreshToken);
     } else {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem('token')
-      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('refresh_token')
     }
   }, [token, refreshToken]);
 
@@ -48,10 +48,12 @@ export const useAuth = () => {
 
 export const refreshAuthToken = async (refreshToken) => {
   try {
+   
     const response = await axios.post('http://localhost:8000/api/token/refresh', {
-      refreshToken: refreshToken
+      refresh_token: refreshToken
     });
-    return response.data.accessToken; // New JWT 
+   
+    return response.data; // New JWT 
   } catch (error) {
     console.error('Erreur lors du rafraîchissement du token :', error);
     throw error;

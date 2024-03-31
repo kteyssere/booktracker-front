@@ -111,12 +111,10 @@ function App() {
 
   useEffect(() => {
     if (isTokenExpired) {
-      const newTkn = refreshAuthToken(refreshToken);
+      const newTkn = refreshAuthToken(localStorage.getItem("refreshToken"));
       localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('refresh_token');
       setToken(newTkn);
-
-      return <Navigate to="/logout" />;
     }
   }, [isTokenExpired]);
 
