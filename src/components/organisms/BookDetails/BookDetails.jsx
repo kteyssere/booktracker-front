@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getBook } from "../../../store/index";
 import { Card } from "../../atoms";
-import { ReviewForm } from '../../molecules';
+import { ProgressionForm, ReviewForm } from '../../molecules';
 
 
 const BookDetails = ({ idBook, ...props }) => {
@@ -32,10 +32,26 @@ const BookDetails = ({ idBook, ...props }) => {
 
   const renderDatas = () => {
     if (isLoaded) {
-      let { title, imageLinks, description, authors, categories, publisher, totalPages, reviews } = apiReturn.book;
+      
+      let { title, imageLinks, description, authors, categories, publisher, totalPages, reviews, progressions } = apiReturn.book;
       return <div>
         <Card title={title}>
           <img src={imageLinks[0]}></img>
+          <div>
+            <p>Progression :</p>
+            <ProgressionForm onAdd={handleAddElement} idBook={idBook}></ProgressionForm>
+            {/* {progressions.map((x, i) => {
+
+              // let { title, comment, user, createdAt } = x;
+              // const dateObject = new Date(createdAt).toLocaleDateString();
+
+              // return <Card key={i} title={title} subtitle={dateObject}>
+              //   <p>{user.username}</p>
+              //   <p>{comment}</p>
+               
+              // </Card>
+            })} */}
+          </div>
           <div>
             <p>Authors :</p>
             {authors.map((x, i) => {
@@ -83,6 +99,7 @@ const BookDetails = ({ idBook, ...props }) => {
               return <Card key={i} title={title} subtitle={dateObject}>
                 <p>{user.username}</p>
                 <p>{comment}</p>
+               
               </Card>
             })}
           </div>
