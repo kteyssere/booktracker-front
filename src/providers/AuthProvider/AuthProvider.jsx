@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // State to hold the authentication token
   const [token, setToken_] = useState(localStorage.getItem("token"));
-  const [refreshToken, setRefreshToken_] = useState(localStorage.getItem("refresh_token"));
+  const [refreshToken, setRefreshToken_] = useState(localStorage.getItem("refreshToken"));
 
   // Function to set the authentication token
   const setToken = (newToken, newRefreshToken) => {
@@ -19,11 +19,11 @@ const AuthProvider = ({ children }) => {
     if (token && refreshToken) {
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       localStorage.setItem('token',token);
-      localStorage.setItem('refresh_token',refreshToken);
+      localStorage.setItem('refreshToken',refreshToken);
     } else {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem('token')
-      localStorage.removeItem('refresh_token')
+      localStorage.removeItem('refreshToken')
     }
   }, [token, refreshToken]);
 

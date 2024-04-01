@@ -11,11 +11,11 @@ export const getListBook = createAsyncThunk(
     };
     const response = await axios(config)
       .then((res) => {
-        console.log("HttpBin repondru ", res);
+        //console.log("HttpBin response ", res);
         return res;
       })
       .catch((err) => {
-        console.error("Error: ", err);
+        //console.error("Error: ", err);
         return err;
       });
 

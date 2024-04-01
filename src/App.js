@@ -113,7 +113,7 @@ function App() {
     if (isTokenExpired) {
       const newTkn = refreshAuthToken(localStorage.getItem("refreshToken"));
       localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('refreshToken');
       setToken(newTkn);
     }
   }, [isTokenExpired]);

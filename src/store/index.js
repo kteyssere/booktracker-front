@@ -90,11 +90,11 @@ export const getBook = createAsyncThunk(
     };
     const response = await axios(config)
       .then((res) => {
-        console.log("HttpBin repondru ", res);
+        //console.log("HttpBin response ", res);
         return res;
       })
       .catch((err) => {
-        console.error("Error: ", err);
+        //console.error("Error: ", err);
         return err;
       });
   
@@ -114,11 +114,11 @@ export const getBookSearch = createAsyncThunk(
    
     const response = await axios(config)
       .then((res) => {
-        console.log("HttpBin repondru ", res);
+        //console.log("HttpBin response ", res);
         return res;
       })
       .catch((err) => {
-        console.error("Error: ", err);
+        //console.error("Error: ", err);
         return err;
       });
    
@@ -138,11 +138,11 @@ export const getLatestProgression = createAsyncThunk(
    
     const response = await axios(config)
       .then((res) => {
-        console.log("HttpBin repondru ", res);
+        //console.log("HttpBin response ", res);
         return res;
       })
       .catch((err) => {
-        console.error("Error: ", err);
+        //console.error("Error: ", err);
         return err;
       });
    
